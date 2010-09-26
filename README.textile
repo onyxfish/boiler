@@ -2,7 +2,7 @@ h1. Boiler: An experiment in client-side everything.
 
 h2. What the hell?
 
-Its "boilerplate" html file that loads a mustache.js template and a data file from URLs specified as GET parameters, mashes them up, and replaces its own contents with the output.
+Its a "boilerplate" html file that loads a mustache.js template and a data file from URLs specified as GET parameters, mashes them up, and replaces its own contents with the output.
 
 h2. Why!?
 
@@ -37,6 +37,8 @@ h2. Notes/TODO
 * No clue if URLs as params are browser compatible.
 * A very rough implementation of in-browser CSV parsing is included--the idea being that Google Docs could be used as a backend. (Not sure if Google throttles frequent requests for published docs.)
 * Hashing may be used to avoid re-rendering identical content.
+* Its entirely unclear how fast this is or how frequent polling could be on "average" computers.
+* In the future boiler will take a param specifying how often to poll for new content and automatically show/hide a loading icon ("throbber") in the rendered template (likely using a magic div id).
 
 h2. Credits
 
