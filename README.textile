@@ -6,13 +6,13 @@ Its "boilerplate" html file that loads a mustache.js template and a data file fr
 
 h2. Why!?
 
-For near-real-time updates without complicated push/comet infrastructure.  Clients can poll for a small datafile hosted on very cheap infrastructure (S3, etc.) and render it using a template that was fetched on load. This data file can be updated by a server process with no knowledge of its users and the client can repeat its fetch-and-render cycle very frequently.
+For near-real-time updates without complicated push/comet infrastructure.  Clients can poll for a small datafile hosted on very cheap infrastructure (S3, etc.) and render it using a template that was fetched on load. The data file can be updated by a server process with no knowledge of its users and the client can repeat its fetch-and-render cycle very frequently.
 
-The code is currently targeted at embeddable widgets, but the principle would be easy to apply to full-pages.
+The code as written is currently targeted at embeddable widgets, but the principle would be straightforward to apply to full-pages.
 
 h2. Usage
 
-You will need a way to serve the files.  I suggest the following Python one-liner:
+You will need a way to serve the files.  I suggest executing the following Python one-liner:
 
 <pre>
 % python -m SimpleHTTPServer
@@ -30,7 +30,7 @@ http://localhost:8000/boiler.html?template=examples/template.html&data=examples/
 
 h2. Is it tested?
 
-You must be joking.  Only in the latest non-dev Chrome and only on OSX.
+Not at all.  Only in the latest non-dev Chrome and only on OSX.
 
 h2. Notes/TODO
 
