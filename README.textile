@@ -1,0 +1,47 @@
+h1. Boiler: An experiment in client-side everything.
+
+h2. What the hell?
+
+Its "boilerplate" html file that loads a mustache.js template and a data file from URLs specified as GET parameters, mashes them up, and replaces its own contents with the output.
+
+h2. Why!?
+
+For near-real-time updates without complicated push/comet infrastructure.  Clients can poll for a small datafile hosted on very cheap infrastructure (S3, etc.) and render it using a template that was fetched on load. This data file can be updated by a server process with no knowledge of its users and the client can repeat its fetch-and-render cycle very frequently.
+
+The code is currently targeted at embeddable widgets, but the principle would be easy to apply to full-pages.
+
+h2. Usage
+
+You will need a way to serve the files.  I suggest the following Python one-liner:
+
+<pre>
+% python -m SimpleHTTPServer
+</pre>
+
+Then visit:
+
+<pre>
+http://localhost:8000/boiler.html?template=examples/template.html&data=examples/data.json
+(basic json)
+
+http://localhost:8000/boiler.html?template=examples/template.html&data=examples/data.csv
+(in-browser parsed CSV)
+</pre>
+
+h2. Is it tested?
+
+You must be joking.  Only in the latest non-dev Chrome and only on OSX.
+
+h2. Notes/TODO
+
+* No clue if URLs as params are browser compatible.
+* A very rough implementation of in-browser CSV parsing is included--the idea being that Google Docs could be used as a backend. (Not sure if Google throttles frequent requests for published docs.)
+* Hashing may be used to avoid re-rendering identical content.
+
+h2. Credits
+
+All code by Christopher Groskopf--courtesy of a Saturday evening, good whiskey, and Chevelle.
+
+h2. License
+
+MIT.

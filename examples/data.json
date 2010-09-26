@@ -1,0 +1,8 @@
+{
+    "items":
+    {
+        "test": "Rendered from JSON!",
+        "some": 1,
+        "data": 2
+    }
+}
