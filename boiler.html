@@ -1,21 +1,9 @@
 <div id="boiler-room">
 </div>
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" />
+<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" /> -->
 <script type="text/javascript" src="mustache.js" />
 <script type="text/javascript">
-    // http://stackoverflow.com/questions/901115/get-querystring-with-jquery/2880929#2880929
-    var urlParams = {};
-    (function () {
-        var e,
-            d = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); },
-            q = window.location.search.substring(1),
-            r = /([^&=]+)=?([^&]*)/g;
-
-        while (e = r.exec(q))
-           urlParams[d(e[1])] = d(e[2]);
-    })();
-    
     // http://www.bennadel.com/blog/1504-Ask-Ben-Parsing-CSV-Strings-With-Javascript-Exec-Regular-Expression-Command.htm
     // This will parse a delimited string into an array of
     // arrays. The default delimiter is the comma, but this
@@ -134,40 +122,28 @@
     function got_template(data, text_status, request) {
         boiler_template = data;
 
-        if ("data" in urlParams) {
-            var dataType;
-            
-            if (/json$/.test(urlParams["data"])) {
-                dataType = "json";
-            } else {
-                dataType = "text";
-            }
-            
-            jQuery(document).ready(function() {
-                jQuery.ajax({
-                  url: urlParams["data"],
-                  success: got_data,
-                  dataType: dataType
-                });
+        var dataType;
+        
+        if (/json$/.test(urlParams["data"])) {
+            dataType = "json";
+        } else {
+            dataType = "text";
+        }
+        
+        jQuery(document).ready(function() {
+            jQuery.ajax({
+              url: boiler_data_url,
+              success: got_data,
+              dataType: dataType
             });
-        }
-        else {
-            alert("Missing data parameter!");
-            return;
-        }
+        });
     }
     
     jQuery(document).ready(function() {
-        if ("template" in urlParams) {
-            jQuery.ajax({
-              url: urlParams["template"],
-              success: got_template,
-              dataType: 'html'
-            });
-        }
-        else {
-            alert("Missing template parameter!");
-            return;
-        }
+        jQuery.ajax({
+          url: boiler_template_url,
+          success: got_template,
+          dataType: 'html'
+        });
     });
 </script>
