@@ -99,7 +99,7 @@ function CSVToArray( strData, strDelimiter ){
 var boiler_template;
 var boiler_data;
 
-function got_data(data, text_status, request) {
+function boildata(data, text_status, request) {
     if (typeof(data) == 'string') {
         data = { "items": CSVToArray(data) };
     }
@@ -113,7 +113,7 @@ function got_data(data, text_status, request) {
     jQuery("#boiler-room").append(content);
 }
 
-function got_template(data, text_status, request) {
+function boiltemplate(data, text_status, request) {
     boiler_template = data;
 
     var dataType;
@@ -127,8 +127,7 @@ function got_template(data, text_status, request) {
     jQuery(document).ready(function() {
         jQuery.ajax({
           url: boiler_data_url,
-          success: got_data,
-          dataType: dataType
+          dataType: "jsonp"
         });
     });
 }
@@ -136,7 +135,6 @@ function got_template(data, text_status, request) {
 jQuery(document).ready(function() {
     jQuery.ajax({
       url: boiler_template_url,
-      success: got_template,
-      dataType: 'html'
+      dataType: 'jsonp'
     });
 });
