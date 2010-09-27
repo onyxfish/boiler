@@ -10,7 +10,7 @@
                     
                     $.ajax({
                         url: options["template_url"],
-                        jsonpCallback: "boiltemplate",
+                        jsonpCallback: "boilertemplate",
                         dataType: "jsonp",
                         success: function(template_data) {
                             options["template"] = template_data;
@@ -20,7 +20,7 @@
                                  $this.everyTime(options["repeat"], function() {
                                      $.ajax({
                                          url: options["data_url"],
-                                         jsonpCallback: "boildata",
+                                         jsonpCallback: "boilerdata",
                                          dataType: "jsonp",
                                          success: function(source_data) {
                                              console.log("Updating!");
@@ -35,7 +35,7 @@
                              } else {                             
                                 $.ajax({
                                     url: options["data_url"],
-                                    jsonpCallback: "boildata",
+                                    jsonpCallback: "boilerdata",
                                     dataType: "jsonp",
                                     success: function(source_data) {
                                         var html = Mustache.to_html(options["template"], source_data);
