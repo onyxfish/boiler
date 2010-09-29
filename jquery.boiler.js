@@ -104,6 +104,12 @@
                                                  dataType: "jsonp",
                                                  success: function(source_data) {
                                                      console.log("Updating!");
+                                                     
+                                                     // Handle CSV
+                                                     if (typeof(source_data) == 'string') {
+                                                         source_data = { "items": parse_csv(source_data) };
+                                                     }
+                                                         
                                                      var html = Mustache.to_html(options["template"], source_data);
                                                      var content = $(html);
 
