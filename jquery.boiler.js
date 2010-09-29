@@ -1,18 +1,18 @@
 (function($) {
-    // http://www.bennadel.com/blog/1504-Ask-Ben-Parsing-CSV-Strings-With-Javascript-Exec-Regular-Expression-Command.htm
-    function parse_csv( strData, strDelimiter ){
-        strDelimiter = (strDelimiter || ",");
+    // From: http://www.bennadel.com/blog/1504-Ask-Ben-Parsing-CSV-Strings-With-Javascript-Exec-Regular-Expression-Command.htm
+    function parse_csv( data, delimiter ){
+        delimiter = (delimiter || ",");
 
-        var objPattern = new RegExp(
+        var regex = new RegExp(
                 (
                         // Delimiters.
-                        "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
+                        "(\\" + delimiter + "|\\r?\\n|\\r|^)" +
 
                         // Quoted fields.
                         "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
 
                         // Standard fields.
-                        "([^\"\\" + strDelimiter + "\\r\\n]*))"
+                        "([^\"\\" + delimiter + "\\r\\n]*))"
                 ),
                 "gi"
                 );
@@ -21,46 +21,46 @@
         var headers = [];
         var i = 0;
 
-        var arrData = [{}];
-        var arrMatches = null;
+        var results = [{}];
+        var matches = null;
 
-        while (arrMatches = objPattern.exec( strData )) {
-                var strMatchedDelimiter = arrMatches[ 1 ];
+        while (matches = regex.exec( data )) {
+                var matched_delimiter = matches[ 1 ];
 
                 // Check to see if the given delimiter has a length
                 // (is not the start of string) and if it matches
                 // field delimiter. If it does not, then we know
                 // that this delimiter is a row delimiter.
-                if (strMatchedDelimiter.length && (strMatchedDelimiter != strDelimiter)) {
+                if (matched_delimiter.length && (matched_delimiter != delimiter)) {
                     // Since we have reached a new row of data,
                     // add an empty row to our data array.
-                    arrData.push([]);
+                    results.push([]);
                     first = false;
                     i = 0;
                 }
                 
-                if (arrMatches[2]) {
+                if (matches[2]) {
                     // We found a quoted value. When we capture
                     // this value, unescape any double quotes.
-                    var strMatchedValue = arrMatches[ 2 ].replace(
+                    var matched_value = matches[ 2 ].replace(
                             new RegExp( "\"\"", "g" ),
                             "\""
                             );
                 } else {
                     // We found a non-quoted value.
-                    var strMatchedValue = arrMatches[ 3 ];
+                    var matched_value = matches[ 3 ];
                 }
 
                 if (first) {
-                    headers.push(strMatchedValue);
+                    headers.push(matched_value);
                 } else {
-                    arrData[ arrData.length - 1 ][headers[i]] = strMatchedValue;
+                    results[ results.length - 1 ][headers[i]] = matched_value;
                 }
                 
                 i += 1;
         }
 
-        return( arrData );
+        return( results );
     }
     
     var methods = {
