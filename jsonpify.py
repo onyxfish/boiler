@@ -47,6 +47,9 @@ for filename in os.listdir('data'):
     with open('data/%s' % filename, 'r') as f:
         content = f.read()
 
+    if filename.endswith('.csv'):
+        content = '"%s"' % escapejs(content)
+        
     output = '%s(%s)' % (DATA_CALLBACK, content)
     
     with open('%s/%s' % (OUTPUT_DIR, filename), 'w') as f:
