@@ -15,37 +15,37 @@
                         success: function(template_data) {
                             options["template"] = template_data;
                             $this.data('boiler', options);
-                            
-                            if ("repeat" in options && options["repeat"] != 0) {
-                                 $this.everyTime(options["repeat"], function() {
-                                     $.ajax({
-                                         url: options["data_url"],
-                                         jsonpCallback: "boilerdata",
-                                         dataType: "jsonp",
-                                         success: function(source_data) {
-                                             console.log("Updating!");
-                                             var html = Mustache.to_html(options["template"], source_data);
-                                             var content = $(html);
+                                                       
+                            $.ajax({
+                                url: options["data_url"],
+                                jsonpCallback: "boilerdata",
+                                dataType: "jsonp",
+                                success: function(source_data) {
+                                    var html = Mustache.to_html(options["template"], source_data);
+                                    var content = $(html);
 
-                                             $this.empty();
-                                             $this.append(content);
-                                         }
-                                     });
-                                 });
-                             } else {                             
-                                $.ajax({
-                                    url: options["data_url"],
-                                    jsonpCallback: "boilerdata",
-                                    dataType: "jsonp",
-                                    success: function(source_data) {
-                                        var html = Mustache.to_html(options["template"], source_data);
-                                        var content = $(html);
+                                    $this.empty();
+                                    $this.append(content);
+                                    
+                                    if ("repeat" in options && options["repeat"] != 0) {
+                                         $this.everyTime(options["repeat"], function() {
+                                             $.ajax({
+                                                 url: options["data_url"],
+                                                 jsonpCallback: "boilerdata",
+                                                 dataType: "jsonp",
+                                                 success: function(source_data) {
+                                                     console.log("Updating!");
+                                                     var html = Mustache.to_html(options["template"], source_data);
+                                                     var content = $(html);
 
-                                        $this.empty();
-                                        $this.append(content);
-                                    }
-                                });
-                            }
+                                                     $this.empty();
+                                                     $this.append(content);
+                                                 }
+                                             });
+                                         });
+                                     }
+                                }
+                            });
                         }
                     });
                 }
