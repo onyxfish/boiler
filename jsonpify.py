@@ -1,7 +1,6 @@
 import os
 import sys
 
-DATA_CALLBACK = 'boilerdata'
 TEMPLATE_CALLBACK = 'boilertemplate'
 OUTPUT_DIR = 'jsonp'
 
@@ -16,8 +15,8 @@ _base_js_escapes = (
     ('=', r'\u003D'),
     ('-', r'\u002D'),
     (';', r'\u003B'),
-    (u'\u2028', r'\u2028'),
-    (u'\u2029', r'\u2029')
+    #(u'\u2028', r'\u2028'),
+    #(u'\u2029', r'\u2029')
 )
 
 # Escape every ASCII character with a value less than 32.
@@ -39,18 +38,6 @@ for filename in os.listdir('templates'):
     output = '%s("%s")' % (TEMPLATE_CALLBACK, content)
     
     outfile = ''
-    
-    with open('%s/%s' % (OUTPUT_DIR, filename), 'w') as f:
-        f.write(output)
-    
-for filename in os.listdir('data'):
-    with open('data/%s' % filename, 'r') as f:
-        content = f.read()
-
-    if filename.endswith('.csv'):
-        content = '"%s"' % escapejs(content)
-        
-    output = '%s(%s)' % (DATA_CALLBACK, content)
     
     with open('%s/%s' % (OUTPUT_DIR, filename), 'w') as f:
         f.write(output)
