@@ -76,14 +76,15 @@
                         url: options["template_url"],
                         jsonpCallback: "boilertemplate",
                         dataType: "jsonp",
+                        cache: false,
                         success: function(template_data) {
                             options["template"] = template_data;
                             $this.data('boiler', options);
                                                        
                             $.ajax({
                                 url: options["data_url"],
-                                jsonpCallback: "boilerdata",
                                 dataType: "jsonp",
+                                cache: false,
                                 success: function(source_data) {
                                     // Handle CSV
                                     if (typeof(source_data) == 'string') {
@@ -100,8 +101,8 @@
                                          $this.everyTime(options["repeat"], function() {
                                              $.ajax({
                                                  url: options["data_url"],
-                                                 jsonpCallback: "boilerdata",
                                                  dataType: "jsonp",
+                                                 cache: false,
                                                  success: function(source_data) {
                                                      console.log("Updating!");
                                                      
