@@ -30,6 +30,11 @@ Then visit:
 http://localhost:8000/test.html
 </pre>
 
+h2. Boiler + Stovetop
+
+Boiler can be combined with "Stovetop":http://github.com/bouvard/stovetop to
+fetch data from Google Spreadsheets.
+
 h2. Is it tested?
 
 Not at all.  Only in the latest non-dev Chrome and only on OSX.
